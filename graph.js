@@ -17,9 +17,9 @@ class Graph {
 
   // this function accepts an array of Node instances and adds them to the nodes property on the graph
   addVertices(vertexArray) {
-      for(let i in vertexArray){
-        this.addVertex(vertexArray[i]);
-      }
+    for (let i in vertexArray) {
+      this.addVertex(vertexArray[i]);
+    }
   }
 
   // this function accepts two vertices and updates their adjacent values to include the other vertex
@@ -37,60 +37,47 @@ class Graph {
   // this function accepts a vertex and removes it from the nodes property, it also updates any adjacency lists that include that vertex
   removeVertex(vertex) {
     this.nodes.delete(vertex);
-    for(let node in this.nodes){
-        node.adjacent.delete(vertex);
+    for (let node in this.nodes) {
+      node.adjacent.delete(vertex);
     }
   }
 
   // this function returns an array of Node values using DFS
   depthFirstSearch(start) {
-    let toVisit =[start];
+    let toVisit = [start];
     let beenTo = new Set(toVisit);
-    let nodeVals =[];
-while (toVisit.length) {
-
-  let currentNode = toVisit.pop();
-  nodeVals.push(currentNode.value);
-  for (let adjacentNode of currentNode.adjacent) {
-    if (!beenTo.has(adjacentNode)){
-      toVisit.push(adjacentNode);
-      beenTo.add(adjacentNode);
+    let nodeVals = [];
+    while (toVisit.length) {
+      let currentNode = toVisit.pop();
+      nodeVals.push(currentNode.value);
+      for (let adjacentNode of currentNode.adjacent) {
+        if (!beenTo.has(adjacentNode)) {
+          toVisit.push(adjacentNode);
+          beenTo.add(adjacentNode);
+        }
+      }
     }
-  }
-
-}
-return nodeVals;
-
+    return nodeVals;
   }
 
   // this function returns an array of Node values using BFS
   breadthFirstSearch(start) {
-    let toVisit =[start];
-let beenTo = new Set(toVisit);
-let nodeVals =[];
-while (toVisit.length) {
-
-  let currentNode = toVisit.shift();
-  nodeVals.push(currentNode.value);
-  for (let adjacentNode of currentNode.adjacent) {
-    if (!beenTo.has(adjacentNode)){
-      toVisit.push(adjacentNode);
-      beenTo.add(adjacentNode);
+    let toVisit = [start];
+    let beenTo = new Set(toVisit);
+    let nodeVals = [];
+    while (toVisit.length) {
+      let currentNode = toVisit.shift();
+      nodeVals.push(currentNode.value);
+      for (let adjacentNode of currentNode.adjacent) {
+        if (!beenTo.has(adjacentNode)) {
+          toVisit.push(adjacentNode);
+          beenTo.add(adjacentNode);
+        }
+      }
     }
-  }
 
-}
-
-return nodeVals;
-
+    return nodeVals;
   }
 }
 
-
-
-
-
-
-
-
-module.exports = {Graph, Node}
+module.exports = { Graph, Node };
